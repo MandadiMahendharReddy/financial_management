@@ -4,9 +4,11 @@ from .forms import SavingForm
 from django.db import models
 import pandas as pd
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def saving_list(request):
-    savings = Saving.objects.all()
+    savings = Saving.objects.filter(user=request.user).order_by("-date")
     total_savings = savings.aggregate(total=models.Sum("amount"))["total"] or 0
     return render(request, "savings/saving_list.html", {"savings": savings, "total_savings": total_savings})
 

@@ -24,12 +24,16 @@ def home(request):
     total_income = Income.objects.filter(user=request.user).aggregate(total=models.Sum("amount"))["total"] or 0
     total_expenditure = Expenditure.objects.filter(user=request.user).aggregate(total=models.Sum("amount"))["total"] or 0
     total_savings = Saving.objects.filter(user=request.user).aggregate(total=models.Sum("amount"))["total"] or 0
+    total_available_amount = total_income - (total_expenditure + total_savings)
+    user=request.user
     context = {
         "total_income": total_income,
         "total_expenditure": total_expenditure,
-        "total_savings": total_savings
+        "total_savings": total_savings,
+        "total_available_amount": total_available_amount,
+        "user": user
     }
-    return render(request, "home.html", context)
+    return render(request, "home.html", context )
 
 from django.http import HttpResponse
 

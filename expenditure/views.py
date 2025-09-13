@@ -4,9 +4,11 @@ from .forms import ExpenditureForm
 from django.db import models
 import pandas as pd
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def expenditure_list(request):
-    expenditures = Expenditure.objects.all()
+    expenditures = Expenditure.objects.filter(user=request.user).order_by("-date")
     total_expenditure = expenditures.aggregate(total=models.Sum("amount"))["total"] or 0
     return render(request, "expenditure/expenditure_list.html", {"expenditures": expenditures, "total_expenditure": total_expenditure})
 

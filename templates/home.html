@@ -27,7 +27,7 @@
     </nav>
     <div class="container">
         <div class="py-5 text-center">
-            <h1 class="display-4 fw-bold mb-3">Welcome to Financial Management</h1>
+            <h1 class="display-4 fw-bold mb-3">Hi, {{ user }} Welcome to Financial Management</h1>
             <p class="lead mb-4">Track your Incomes, Expenditures, and Savings efficiently. Navigate to any section, add entries, and get a live overview of your finances.</p>
         </div>
         <div class="row g-4 mb-4">
@@ -67,6 +67,16 @@
                         <div class="mt-2">
                             <a href="/savings/" class="btn btn-outline-primary btn-sm">View Savings</a>
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-primary shadow text-center">
+                    <div class="card-header bg-info text-white">
+                        <h5>Total Available Amount</h5>
+                    </div>
+                    <div class="card-body">
+                        <span class="display-6 text-primary">₹{{ total_available_amount }}</span>
                     </div>
                 </div>
             </div>
